@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello-world-njs
+  name: hello-world-njs
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: hello-world-njs
+    deploymentconfig: hello-world-njs
+  sessionAffinity: None
+  type: ClusterIP

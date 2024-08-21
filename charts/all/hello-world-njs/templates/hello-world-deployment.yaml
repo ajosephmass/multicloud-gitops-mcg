@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    application: hello-world-njs
+  name: hello-world-njs
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      deploymentconfig: hello-world-njs
+  template:
+    metadata:
+      labels:
+        app: hello-world-njs
+        deploymentconfig: hello-world-njs
+      name: hello-world
+    spec:
+      containers:
+      containers:
+      - name: hello-nodejs
+        image: quay.io/fedora/nodejs-18-minimal
+        ports:
+        - containerPort: 8080
+        command: ["node", "server.js"]
+        # Mount the source code volume
+        volumeMounts:
+        - name: app-source
+          mountPath: /opt/app-root/src
+      volumes:
+      - name: app-source
+        configMap:
+          name: hello-nodejs-config
+          items:
+          - key: server.js
+            path: server.js
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        livenessProbe:
+          httpGet:
+            path: /index.html
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /index.html
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
