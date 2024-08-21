@@ -31,7 +31,7 @@ spec:
       volumes:
       - name: app-source
         configMap:
-          name: hello-nodejs-config
+          name: hello-world-njs-configmap
           items:
           - key: server.js
             path: server.js
