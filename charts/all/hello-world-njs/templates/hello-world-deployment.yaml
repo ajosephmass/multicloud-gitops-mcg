@@ -32,15 +32,15 @@ spec:
       - name: app-source
         configMap:
           name: hello-world-njs-configmap
-          items:
-          - key: server.js
-            path: server.js
+          # items:
+          # - key: server.js
+          #   path: server.js
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         livenessProbe:
           httpGet:
-            path: /index.html
+            path: /api/hello
             port: 8080
             scheme: HTTP
           initialDelaySeconds: 5
@@ -50,7 +50,7 @@ spec:
           failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /index.html
+            path: /api/hello
             port: 8080
             scheme: HTTP
           initialDelaySeconds: 5
