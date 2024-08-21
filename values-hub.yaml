@@ -7,7 +7,7 @@ clusterGroup:
     - golang-external-secrets
     - config-demo
     - hello-world
-    - hello-world-njs
+    #- hello-world-njs
   subscriptions:
     acm:
       name: advanced-cluster-management
@@ -18,7 +18,7 @@ clusterGroup:
     - hub
     - config-demo
     - hello-world
-    - hello-world-njs
+    #- hello-world-njs
   # Explicitly mention the cluster-state based overrides we plan to use for this pattern.
   # We can use self-referential variables because the chart calls the tpl function with these variables defined
   sharedValueFiles:
@@ -70,11 +70,11 @@ clusterGroup:
       namespace: hello-world
       project: hello-world
       path: charts/all/hello-world
-    hello-world-njs:
-      name: hello-world-njs
-      namespace: hello-world-njs
-      project: hello-world-njs
-      path: charts/all/hello-world-njs
+    # hello-world-njs:
+    #   name: hello-world-njs
+    #   namespace: hello-world-njs
+    #   project: hello-world-njs
+    #   path: charts/all/hello-world-njs
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
     # The default schedule is every 10 minutes: imperative.schedule
